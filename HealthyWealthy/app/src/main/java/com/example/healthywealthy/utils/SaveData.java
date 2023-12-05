@@ -11,8 +11,21 @@ public class SaveData {
         if(user != null){
             SharedPreferences sharedPreferences = context.getSharedPreferences("user_details", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(user.getId(), user.getName());
-            editor.commit();
+            editor.putString("username", user.getName());
+            editor.apply();
         }
+    }
+
+    public static void resetUser(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_details", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+    public static String getUser( Context context){
+        String username = "";
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_details", Context.MODE_PRIVATE);
+        username = sharedPreferences.getString("username","");
+        return username;
     }
 }

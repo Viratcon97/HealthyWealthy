@@ -2,12 +2,15 @@ package com.example.healthywealthy.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.healthywealthy.databinding.ActivityHomeBinding;
+import com.example.healthywealthy.utils.SaveData;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding activityHomeBinding;
 
@@ -19,14 +22,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         activityHomeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = activityHomeBinding.getRoot();
         setContentView(view);
-    }
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == activityHomeBinding.btnQuickHealthCheck.getId()){
-            //Start the Quiz
 
-        }else {
-            //Clear Shared preference
-        }
+        activityHomeBinding.btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Navigate to user profile screen
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        activityHomeBinding.btnResetUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Clear Shared preference
+                SaveData.resetUser(getApplicationContext());
+                Toast.makeText(getApplicationContext(),"User reset successful!",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        activityHomeBinding.btnQuickHealthCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Start the Quiz
+            }
+        });
     }
 }

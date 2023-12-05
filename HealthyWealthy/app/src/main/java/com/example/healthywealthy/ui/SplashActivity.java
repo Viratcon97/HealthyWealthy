@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.example.healthywealthy.R;
 import com.example.healthywealthy.databinding.ActivityRegisterBinding;
 import com.example.healthywealthy.databinding.ActivitySplashBinding;
+import com.example.healthywealthy.utils.SaveData;
 
 import java.util.Timer;
 
@@ -36,9 +38,19 @@ public class SplashActivity extends AppCompatActivity {
             public void onFinish() {
                 //Check if user name present or not
                 //If name is registered, navigate to Home Activity or else navigate to register activity
+                //Fetching User name from shared preference
+                String username = SaveData.getUser(getApplicationContext());
+                if(!TextUtils.isEmpty(username)) {
+                    //Registered
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    startActivity(intent);
 
-                Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                }else{
+                    //Not Registered
+                    Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+
+                }
             }
         };
         timer.start();

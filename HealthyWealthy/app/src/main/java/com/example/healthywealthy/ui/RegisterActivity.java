@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else{
                     //Save Name to Shared preference and navigate to home activity
                     String id = String.valueOf(System.currentTimeMillis());
-                    User user = new User(id,name);
+                    User user = new User(name);
                     SaveData.saveUser(user,getApplicationContext());
                     Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(intent);

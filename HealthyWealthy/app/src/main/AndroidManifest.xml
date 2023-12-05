@@ -36,7 +36,9 @@
         <activity
             android:name=".ui.AgeSelectionActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.HealthyWealthy"></activity>
+            android:theme="@style/Base.Theme.HealthyWealthy">
+
+        </activity>
     </application>
 
 </manifest>

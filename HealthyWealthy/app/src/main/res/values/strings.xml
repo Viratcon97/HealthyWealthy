@@ -15,4 +15,6 @@
     <string name="errorEnterValidString">Please enter valid name!</string>
     <string name="txtHealthCheck">Quick Health Check</string>
     <string name="txtResetUser">Reset User</string>
+    <string name="txtProfile">Profile</string>
+    <string name="txtUser">"Username - "</string>
 </resources>
