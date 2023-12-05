@@ -7,4 +7,12 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">From the Square world,\nHello, %1$s!</string>
+    <string name="txt_please_select_age">Please select age</string>
+    <string name="txtNext">Next</string>
+    <string name="submit">Submit</string>
+    <string name="txtEnterYourName">Enter Your Name</string>
+    <string name="txtArrow">txtArrow</string>
+    <string name="errorEnterValidString">Please enter valid name!</string>
+    <string name="txtHealthCheck">Quick Health Check</string>
+    <string name="txtResetUser">Reset User</string>
 </resources>
