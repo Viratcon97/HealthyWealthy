@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.HealthyWealthy">
         <activity
+            android:name=".ui.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ProfileActivity"
             android:exported="false" />
         <activity
@@ -31,14 +34,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.QuestionActivity"
+            android:name=".ui.QuestionOneActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AgeSelectionActivity"
-            android:exported="true"
-            android:theme="@style/Base.Theme.HealthyWealthy">
-
-        </activity>
+            android:name=".ui.QuestionTwoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QuestionThreeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QuestionFourActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QuestionFifthActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

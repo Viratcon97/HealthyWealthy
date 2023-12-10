@@ -12,9 +12,13 @@
     <string name="submit">Submit</string>
     <string name="txtEnterYourName">Enter Your Name</string>
     <string name="txtArrow">txtArrow</string>
-    <string name="errorEnterValidString">Please enter valid name!</string>
+    <string name="errorEnterValidString">Please enter valid name or age!</string>
     <string name="txtHealthCheck">Quick Health Check</string>
     <string name="txtResetUser">Reset User</string>
     <string name="txtProfile">Profile</string>
     <string name="txtUser">"Username - "</string>
+    <string name="txtYes">Yes</string>
+    <string name="txtNo">No</string>
+    <string name="errorOption">Please select one option!</string>
+    <string name="age">Age - </string>
 </resources>

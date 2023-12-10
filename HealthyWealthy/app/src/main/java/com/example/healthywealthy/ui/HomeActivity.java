@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.healthywealthy.databinding.ActivityHomeBinding;
-import com.example.healthywealthy.utils.SaveData;
+import com.example.healthywealthy.utils.DataOperation;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Clear Shared preference
-                SaveData.resetUser(getApplicationContext());
+                DataOperation.resetUser(getApplicationContext());
                 Toast.makeText(getApplicationContext(),"User reset successful!",Toast.LENGTH_LONG).show();
             }
         });
@@ -45,6 +45,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Start the Quiz
+                //Navigate to user profile screen
+                Intent intent = new Intent(HomeActivity.this, QuestionOneActivity.class);
+                startActivity(intent);
             }
         });
     }

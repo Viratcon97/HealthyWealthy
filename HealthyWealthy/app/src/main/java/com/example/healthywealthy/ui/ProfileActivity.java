@@ -7,9 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.healthywealthy.R;
-import com.example.healthywealthy.databinding.ActivityHomeBinding;
 import com.example.healthywealthy.databinding.ActivityProfileBinding;
-import com.example.healthywealthy.utils.SaveData;
+import com.example.healthywealthy.model.User;
+import com.example.healthywealthy.utils.DataOperation;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -27,9 +27,12 @@ public class ProfileActivity extends AppCompatActivity {
     private void init(){
 
         //Fetching User name from shared preference
-        String username = SaveData.getUser(getApplicationContext());
-        if(!TextUtils.isEmpty(username)){
-            activityProfileBinding.tvUserName.setText(String.format("%s%s", getString(R.string.txtUser), username));
+        User userDetails = DataOperation.getUser(getApplicationContext());
+        if(!TextUtils.isEmpty(userDetails.getName())){
+            activityProfileBinding.tvUserName.setText(String.format("%s%s", getString(R.string.txtUser), userDetails.getName()));
+        }
+        if(!TextUtils.isEmpty(String.valueOf(userDetails.getAge()))){
+            activityProfileBinding.tvUserAge.setText(getString(R.string.age)+userDetails.getAge());
         }
     }
 }
