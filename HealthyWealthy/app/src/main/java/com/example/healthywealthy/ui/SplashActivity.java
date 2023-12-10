@@ -2,7 +2,10 @@ package com.example.healthywealthy.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -55,5 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         };
         timer.start();
 
+
     }
+
 }

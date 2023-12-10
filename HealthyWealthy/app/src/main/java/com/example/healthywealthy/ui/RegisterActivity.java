@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.healthywealthy.R;
@@ -28,6 +32,22 @@ public class RegisterActivity extends AppCompatActivity {
         init();
     }
     private void init(){
+
+
+
+        activityRegisterBinding.etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEND){
+                    String text = v.getText().toString();
+                    if(!TextUtils.isEmpty(text)){
+                        v.setText(text);
+                        return  true;
+                    }
+                }
+                return false;
+            }
+        });
 
         activityRegisterBinding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
