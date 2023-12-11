@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -18,12 +20,13 @@ import android.view.View;
 import android.widget.Toast;
 import android.Manifest;
 
+import com.example.healthywealthy.NotificationWorker;
 import com.example.healthywealthy.R;
 import com.example.healthywealthy.databinding.ActivityHomeBinding;
-import com.example.healthywealthy.utils.NotificationBroadcastReceiver;
 import com.example.healthywealthy.utils.SaveData;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -41,8 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         View view = activityHomeBinding.getRoot();
         setContentView(view);
 
+        
+
         createNotificationChannel();
-        scheduleNotification();
+        scheduleNotificationWithWorkManager();
+//        scheduleNotification();
 
         activityHomeBinding.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,29 +76,62 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void scheduleNotification() {
+    private void scheduleNotificationWithWorkManager() {
         // Set the time for the notification (in this case, 8 am)
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 2);
-        calendar.set(Calendar.MINUTE, 51);
+        calendar.set(Calendar.HOUR_OF_DAY, 4);
+        calendar.set(Calendar.MINUTE, 11);
         calendar.set(Calendar.SECOND, 0);
 
-        // Create an Intent for the BroadcastReceiver
-        Intent intent = new Intent(this, NotificationBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long delay = calendar.getTimeInMillis() - System.currentTimeMillis();
 
-        // Get the AlarmManager service
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        // Create a Data object to pass any necessary data to the worker
+        Data inputData = new Data.Builder().putString("notificationTitle", "Your Static Title").build();
 
-        // Set the alarm to trigger at the specified time
-        alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-        );
+//        // Create a OneTimeWorkRequest
+//        OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+//                .setInputData(inputData)
+//                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+//                .build();
+
+        // Create a PeriodicWorkRequest to repeat every day
+        PeriodicWorkRequest notificationWork = new PeriodicWorkRequest.Builder(
+                NotificationWorker.class,
+                1, // repeat interval, in days
+                TimeUnit.DAYS
+        )
+                .setInputData(inputData)
+                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                .build();
+
+        // Enqueue the work request
+        WorkManager.getInstance(this).enqueue(notificationWork);
     }
+
+//    public void scheduleNotification() {
+//        // Set the time for the notification (in this case, 8 am)
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY, 15);
+//        calendar.set(Calendar.MINUTE, 6);
+//        calendar.set(Calendar.SECOND, 0);
+//
+//        // Create an Intent for the BroadcastReceiver
+//        Intent intent = new Intent(this, NotificationBroadcastReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+//                this, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        // Get the AlarmManager service
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//
+//        // Set the alarm to trigger at the specified time
+//        alarmManager.setRepeating(
+//                AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis(),
+//                AlarmManager.INTERVAL_DAY,
+//                pendingIntent
+//        );
+//        Toast.makeText(getApplicationContext(),"scheduled at" + calendar.getTimeInMillis() ,Toast.LENGTH_LONG).show();
+//    }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -103,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
             channel.setDescription(channelDescription);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
+            Toast.makeText(getApplicationContext()," created channel successfullt",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -130,6 +170,8 @@ public class HomeActivity extends AppCompatActivity {
             return;
         }
         managerCompat.notify(2, builder.build());
+
+        Toast.makeText(getApplicationContext(),"sent the notifictaion ",Toast.LENGTH_LONG).show();
 
     }
 }
