@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.healthywealthy.R;
-import com.example.healthywealthy.databinding.ActivityHomeBinding;
 import com.example.healthywealthy.databinding.ActivityProfileBinding;
 import com.example.healthywealthy.utils.SaveData;
 

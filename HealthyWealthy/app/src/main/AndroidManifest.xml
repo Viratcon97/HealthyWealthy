@@ -12,8 +12,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.HealthyWealthy">
-
-
+        <activity
+            android:name=".ui.GraphActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.ProfileActivity"
             android:exported="false" />
@@ -28,30 +29,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.HealthyWealthy">
-
-        </activity>
+            android:theme="@style/Base.Theme.HealthyWealthy"></activity>
         <activity
             android:name=".ui.QuestionActivity"
             android:exported="false" />
         <activity
             android:name=".ui.AgeSelectionActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.HealthyWealthy">
-
-        </activity>
+            android:theme="@style/Base.Theme.HealthyWealthy"></activity>
 
         <service
             android:name=".NotificationWorker"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-
     </application>
 
 </manifest>

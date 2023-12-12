@@ -25,7 +25,10 @@ import com.example.healthywealthy.R;
 import com.example.healthywealthy.databinding.ActivityHomeBinding;
 import com.example.healthywealthy.utils.SaveData;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
@@ -54,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Navigate to user profile screen
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
                 startActivity(intent);
             }
         });
@@ -79,11 +82,15 @@ public class HomeActivity extends AppCompatActivity {
     private void scheduleNotificationWithWorkManager() {
         // Set the time for the notification (in this case, 8 am)
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 4);
-        calendar.set(Calendar.MINUTE, 11);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND, 00);
 
         long delay = calendar.getTimeInMillis() - System.currentTimeMillis();
+
+        DateFormat simpleDelay = new SimpleDateFormat("HH:mm:ss");
+        Date result = new Date(delay);
+
 
         // Create a Data object to pass any necessary data to the worker
         Data inputData = new Data.Builder().putString("notificationTitle", "Your Static Title").build();
@@ -106,6 +113,8 @@ public class HomeActivity extends AppCompatActivity {
 
         // Enqueue the work request
         WorkManager.getInstance(this).enqueue(notificationWork);
+        Toast.makeText(getApplicationContext()," work scheduled"+simpleDelay.format(result),Toast.LENGTH_LONG).show();
+
     }
 
 //    public void scheduleNotification() {
