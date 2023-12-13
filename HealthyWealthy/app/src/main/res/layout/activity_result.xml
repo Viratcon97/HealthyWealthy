@@ -28,6 +28,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_16sp"/>
+
+            <Button
+                android:id="@+id/btnSaveResults"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="center"
+                android:text="@string/txt_save_results" />
+
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="center"
+                android:text="@string/txt_home" />
         </LinearLayout>
     </ScrollView>
 </androidx.wear.widget.BoxInsetLayout>

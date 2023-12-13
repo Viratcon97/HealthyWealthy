@@ -21,4 +21,7 @@
     <string name="txtNo">No</string>
     <string name="errorOption">Please select one option!</string>
     <string name="age">Age - </string>
+    <string name="txt_home">Home</string>
+    <string name="txt_save_results">Save Results</string>
+    <string name="error_user_not_exists">User not exists!</string>
 </resources>

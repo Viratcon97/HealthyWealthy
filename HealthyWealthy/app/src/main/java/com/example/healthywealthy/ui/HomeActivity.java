@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.healthywealthy.R;
 import com.example.healthywealthy.databinding.ActivityHomeBinding;
+import com.example.healthywealthy.model.User;
 import com.example.healthywealthy.utils.DataOperation;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,12 +25,20 @@ public class HomeActivity extends AppCompatActivity {
         View view = activityHomeBinding.getRoot();
         setContentView(view);
 
+        //Fetch details to check if user is exists or not
+        User userDetails = DataOperation.getUser(getApplicationContext());
+
         activityHomeBinding.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Navigate to user profile screen
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                //Check if user details is exist or not
+                if(!userDetails.getName().isEmpty()){
+                    //Navigate to user profile screen
+                    Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), R.string.error_user_not_exists,Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -50,5 +60,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
     }
 }

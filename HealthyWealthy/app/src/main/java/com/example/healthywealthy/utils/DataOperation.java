@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.healthywealthy.model.User;
+import com.example.healthywealthy.model.UserQuizResult;
 
 public class DataOperation {
 
@@ -17,6 +18,14 @@ public class DataOperation {
         }
     }
 
+    public static void saveResults(UserQuizResult userQuizResult, Context context){
+        if(userQuizResult != null){
+            SharedPreferences sharedPreferences = context.getSharedPreferences("user_results", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(userQuizResult.getDate(),userQuizResult.getResult());
+            editor.apply();
+        }
+    }
     public static void resetUser(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_details", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

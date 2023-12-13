@@ -4,16 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.healthywealthy.R;
 import com.example.healthywealthy.databinding.ActivityQuestionFifthBinding;
 import com.example.healthywealthy.databinding.ActivityResultBinding;
+import com.example.healthywealthy.model.User;
+import com.example.healthywealthy.model.UserQuizResult;
+import com.example.healthywealthy.utils.DataOperation;
 import com.example.healthywealthy.utils.Helper;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class ResultActivity extends AppCompatActivity {
     ActivityResultBinding activityResultBinding ;
 
+    int countYes = 0;
+    int countNo = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +37,8 @@ public class ResultActivity extends AppCompatActivity {
 
         //Get previous answers
         Intent answersIntent = getIntent();
-        int countYes = answersIntent.getIntExtra("yes_count",0);
-        int countNo = answersIntent.getIntExtra("no_count",0);
+        countYes = answersIntent.getIntExtra("yes_count",0);
+        countNo = answersIntent.getIntExtra("no_count",0);
 
         //All No
         if(countNo == 5 && countYes == 0){
@@ -52,5 +61,24 @@ public class ResultActivity extends AppCompatActivity {
             activityResultBinding.tvResultSummary.setText(Helper.results_three_yes_two_no);
             activityResultBinding.ivResults.setImageResource(R.drawable.wear_three_yes_two_no);
         }
+
+        activityResultBinding.btnSaveResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Save results to shared preference
+                Date currentTime = Calendar.getInstance().getTime();
+                UserQuizResult userQuizResult = new UserQuizResult(currentTime.toString(),countYes);
+                DataOperation.saveResults(userQuizResult,getApplicationContext());
+            }
+        });
+
+        activityResultBinding.btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Navigate to Home Screen
+                Intent intent = new Intent(ResultActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
